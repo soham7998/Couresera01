@@ -134,4 +134,29 @@ for sender, count in sender_counts.items():
 # Print the result
 print(most_prolific_sender, most_prolific_count)
 
+*Write a program to read through the mbox-short.txt and figure out the distribution by hour of the day for each of the messages. You can pull the hour out from the 'From ' line by finding the time and then splitting the string a second time using a colon.
+From stephen.marquard@uct.ac.za Sat Jan  5 09:14:16 2008
+Once you have accumulated the counts for each hour, print out the counts, sorted by hour as shown below.
+
+
+file_name = 'mbox-short.txt'
+hour_counts = {}
+
+# Open the file
+with open(file_name, 'r') as file:
+    # Read the file line by line
+    for line in file:
+        if line.startswith('From '):
+            # Split the line into words
+            words = line.split()
+            # Extract the time from the line
+            time = words[5]
+            # Split the time using a colon to get the hour
+            hour = time.split(':')[0]
+            # Increment the count for the hour
+            hour_counts[hour] = hour_counts.get(hour, 0) + 1
+
+# Print the counts sorted by hour
+for hour, count in sorted(hour_counts.items()):
+    print(hour, count)
 
