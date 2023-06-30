@@ -101,3 +101,37 @@ for email in emails:
 
 # Print the count at the end
 print("There were", count, "lines in the file with From as the first word")
+
+
+
+*Write a program to read through the mbox-short.txt and figure out who has sent the greatest number of mail messages. The program looks for 'From ' lines and takes the second word of those lines as the person who sent the mail. The program creates a Python dictionary that maps the sender's mail address to a count of the number of times they appear in the file. After the dictionary is produced, the program reads through the dictionary using a maximum loop to find the most prolific committer.
+
+file_name = 'mbox-short.txt'
+
+# Create an empty dictionary to store the sender counts
+sender_counts = {}
+
+# Read the file line by line
+with open(file_name, 'r') as file:
+    for line in file:
+        if line.startswith('From '):
+            # Split the line into words and extract the sender's email address
+            words = line.split()
+            sender = words[1]
+
+            # Update the sender's count in the dictionary
+            sender_counts[sender] = sender_counts.get(sender, 0) + 1
+
+# Find the most prolific sender using a maximum loop
+most_prolific_sender = None
+most_prolific_count = 0
+
+for sender, count in sender_counts.items():
+    if count > most_prolific_count:
+        most_prolific_sender = sender
+        most_prolific_count = count
+
+# Print the result
+print(most_prolific_sender, most_prolific_count)
+
+
